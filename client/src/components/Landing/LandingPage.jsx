@@ -4,7 +4,7 @@ import styles from "./LandingPage.module.css";
 
 export default function LandingPage(){
     return (
-        <div className={styles.container}>
+        <div className={styles.background}>
             <Link to='/home'>
                 <div>
                 <button className={styles.button}></button>
