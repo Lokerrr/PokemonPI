@@ -23,52 +23,62 @@ export const PREV_PAGE ="PREV_PAGE";
 export const HANDLE_NUMBER ="HANDLE_NUMBER";
 
 export function postPokemon(pokemonData){
-    return async (dispatch) => {
+    return async function (dispatch) {
+        try {
         const response = await axios.post(`http://localhost:3001/pokemons`, pokemonData);
-        return dispatch({
+        if(response) {
+            return dispatch({
             type: POST_POKEMON,
-            payload: response.status,
+            payload: response.data,
         });
+        }
+        } catch (error) {
+            alert(error.response.data.error)
+        }
     };
-};
+}
 
 export function getAllPokemons (){
     return async function (dispatch){
-        const json = await axios.get(`http://localhost:3001/pokemons`).data;
+        const json = await axios.get(`http://localhost:3001/pokemons`);
         return dispatch({
             type : GET_ALL_POKEMONS,
-            payload: json
+            payload: json.data
         })
     }
 };
 
 export function getByName(name){
     return async function(dispatch){
-        const json = await axios.get(`http://localhost:3001/pokemons?name=${name}`).data;
+        const json = await axios.get(`http://localhost:3001/pokemons?name=${name}`);
         return dispatch({
             type: GET_BY_NAME,
-            payload: json
+            payload: json.data
         })
     };
 };
 
 export function getByID(id){
     return async function(dispatch){
-        const json = await axios.get(`http://localhost:3001/pokemons/${id}`).data;
+        const json = await axios.get(`http://localhost:3001/pokemons/${id}`);
         return dispatch({
             type: GET_BY_ID,
-            payload: json
+            payload: json.data
         })
     };
 };
 
-export function getTypes(id){
+export function getTypes(){
     return async function(dispatch){
-        const json = await axios.get(`http://localhost:3001/types`).data;
+        try {
+        const json = await axios.get(`http://localhost:3001/types`);
         return dispatch({
             type: GET_TYPES,
-            payload: json
-        })
+            payload: json.data
+        });
+        } catch (error){
+            console.log(error);
+        }
     };
 };
 

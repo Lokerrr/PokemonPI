@@ -20,13 +20,15 @@ const initialState = {
     allPokemons: [],
     pokemons: [],
     pokemonTypes: [],
-    details: {},
+    details: [],
     searchedPokemons: [],
     numPage: 1,
 }
 
 function rootReducer(state = initialState, action){
     switch (action.type){
+        default: 
+        return {...state};
         case POST_POKEMON:
             return {
                 ...state,

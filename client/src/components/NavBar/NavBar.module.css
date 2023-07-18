@@ -1,0 +1,33 @@
+.navbar {
+    background-color: #4e444446;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    z-index: 999;
+  }
+
+  .button {
+    position: relative;
+    left: -30%;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff0505e1;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 10px;
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  }
+
+
+  .button:hover {
+    transform: translateX(5px); 
+    background-color: #fff; 
+    color: red;
+  }
+
+  

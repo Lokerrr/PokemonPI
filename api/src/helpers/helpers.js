@@ -31,6 +31,24 @@ const cleanArray = (pokemon) => {
     });
 };
 
+const cleanArrayDB = (dbPokemons) => {
+    dbPokemons.map((pokemon) => {
+    return {
+        id: pokemon.id,
+        name: pokemon.name,
+        img: pokemon.img,
+        hp: pokemon.hp,
+        attack: pokemon.attack,
+        defense: pokemon.defense,
+        speed: pokemon.speed,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        created: pokemon.created,
+        types: pokemon.types.map((type) => type.name)
+    }
+}
+)
+}
 module.exports = {
-    cleanArray,
+    cleanArray, cleanArrayDB
 };

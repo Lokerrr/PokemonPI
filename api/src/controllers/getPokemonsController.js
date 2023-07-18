@@ -7,21 +7,36 @@ const { cleanArray } = require('../helpers/helpers.js');
 
 // Busca Pokemones por ID desde la bdd o de la API.
 const getPokemonsById = async (id, source) => {
-    const pokemon = source === "api" 
-    ? (await axios.get(`${URL}/${id}`)).data 
-    : await Pokemon.findByPk(id, {
-        include: {
-            model: Type,
-            attributes: ["name"],
-            through: {
-                attributes: [],
-            },
-        },
-    })
+
     if(source === "api"){
+        const pokemon = (await axios.get(`${URL}/${id}`)).data 
         return cleanArray(pokemon)
+    } else if (source !== "api"){
+        const pokemonDB = await Pokemon.findByPk(id, {
+            include: {
+                model: Type,
+                attributes: ["name"],
+                through: {
+                    attributes: [],
+                },
+            },
+        })
+
+        const objPokemon = {
+            id: pokemonDB.dataValues.id,
+            name: pokemonDB.dataValues.name,
+            img: pokemonDB.dataValues.img,
+            hp: pokemonDB.dataValues.hp,
+            attack: pokemonDB.dataValues.attack,
+            defense: pokemonDB.dataValues.defense,
+            speed: pokemonDB.dataValues.speed,
+            height: pokemonDB.dataValues.height,
+            weight: pokemonDB.dataValues.weight,
+            created: pokemonDB.dataValues.created,
+            types: pokemonDB.dataValues.types.map((type) => type.name)
+        }
+        return objPokemon
     }
-    return pokemon;
 };
 
 // Busca Pokemones desde la API por NAME, y los busca por letra incluída, e indepentientemente de mayúsculas o minúsculas.
@@ -61,8 +76,36 @@ const getApiInfo = async () => {
 };
 
 // "Instancia" los Pokemones, desde la bdd y desde la api (y los retorna como array de objetos).
+const getDBinfo = async () => {
+    const pokemonDB = await Pokemon.findAll({
+        include: {model: Type,
+            attributes: ["name"],
+            through: {
+                attributes: [],
+            },
+        },
+    });
+
+    const objPokemon = await pokemonDB.map((pokemon) => {
+        return {
+                id: pokemon.dataValues.id,
+                name: pokemon.dataValues.name,
+                img: pokemon.dataValues.img,
+                hp: pokemon.dataValues.hp,
+                attack: pokemon.dataValues.attack,
+                defense: pokemon.dataValues.defense,
+                speed: pokemon.dataValues.speed,
+                height: pokemon.dataValues.height,
+                weight: pokemon.dataValues.weight,
+                created: pokemon.dataValues.created,
+                types: pokemon.dataValues.types.map((type) => type.name)
+        }
+    })
+    return objPokemon
+}
+
 const getAllPokemons = async () => {
-    const dbPokemons = await Pokemon.findAll();
+    const dbPokemons = await getDBinfo();
     const apiPokemons = await getApiInfo();
     return [...dbPokemons, ...apiPokemons];
 };

@@ -14,7 +14,7 @@ const createPokemon = async (name, img, hp, attack, defense, speed, height, weig
     });
     newPokemon.addTypes(types);
     const objectPokemon = {
-        newPokemon,
+        ...newPokemon.dataValues,
         types
     };
     return objectPokemon;
