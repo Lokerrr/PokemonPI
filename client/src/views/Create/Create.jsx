@@ -21,12 +21,9 @@ export default function Create (){
         hp: "Please select an life level",
         attack: "Please select an attack level",
         defense: "Please select a defense level",
-        speed: "Please select a speed level",
-        height: "Please select the height",
-        weight: "Please select the weight",
         img: "Image is required",
     })
-
+    
     const dispatch = useDispatch();
     const history = useHistory();
     const types = useSelector((state) => state.pokemonTypes);
@@ -59,18 +56,6 @@ export default function Create (){
             if (input.defense !== "") setErrors({ ...errors, defense: "" });
             else setErrors({ ...errors, defense: "Defense is required" });
             return;
-          } else if (name === "speed") {
-            if (input.speed !== "") setErrors({ ...errors, speed: "" });
-            else setErrors({ ...errors, speed: "Speed is required" });
-            return;
-          } else if (name === "weight") {
-            if (input.weight !== "") setErrors({ ...errors, weight: "" });
-            else setErrors({ ...errors, weight: "Weight is required" });
-            return;
-          } else if (name === "height") {
-            if (input.height !== "") setErrors({ ...errors, height: "" });
-            else setErrors({ ...errors, height: "Height is required" });
-            return;
           } else if (name === "img") {
             if (input.img !== "") setErrors({ ...errors, img: "" });
             else setErrors({ ...errors, img: "Imagen is required" });
@@ -78,7 +63,7 @@ export default function Create (){
           }
     };
 
-    useEffect( () => {
+    useEffect(() => {
         dispatch(getTypes());
         dispatch(getAllPokemons());
     }, [dispatch]);
@@ -95,23 +80,23 @@ export default function Create (){
         try {
             dispatch(postPokemon(input));
             alert("The pokemon has been created successfully")
-            history.push("/home")
+            history.push("/create")
         } catch {
             alert('Has been an error')
         }
     };
-
-    const handleSelect = (event) => {
-        setInput({
-            ...input,
-            types: [...input.types, event.target.value],
-        });
-    };
-
+    
+    const handleCheck = async (event) => {
+         await setInput({ ...input, types: [...input.types, event.target.id]})
+        console.log(input);
+    }
+    
     return (
         <div className={style.background}>
             <form className={style.form} onSubmit={handleSubmit}>
+            <input className={style.inputSubmit} disabled={disabled()} type="submit" value="Create"/>
                 <h1 className={style.h1}>Create your Pokémon!</h1>
+                <br />
                 <div>
                     <div className={style.container}>
                     <label className={style.label}>Name:</label>
@@ -220,18 +205,26 @@ export default function Create (){
                     />
                     <span className={style.error}>{errors.img}</span>
                     </div>
-                <br />
-                    <div className={style.container}>
-                    <select className={style.select} onChange={handleSelect}>
-                    <option defaultValue="unknow">Select type</option>
-                    {types.map((type) => (
-                    <option key={type.name} value={type.id}>{type.name}</option>
-                    ))}
-                    </select>
+                    <div className={style.containerCheckbox}>
+                        <span className={style.span}>Select type... Or types!</span>
+                        <br />
+                        {types.map((type) => (
+                            <div key={type.name} className={style.divCheckbox}>
+                            <label key={type.name} className={style.checkboxLabel}>
+                            {type.name}
+                            <input
+                            key={type.name}
+                            id={type.id}
+                            name={type.name}
+                            value={type.name}
+                            type='checkbox'
+                            onChange={handleCheck}/>
+                            </label>
+                            </div>
+                        ))}
                     <span className={style.error}>{errors.type}</span>
                     </div>
                 <br />
-                    <input className={style.inputSubmit} disabled={disabled()} type="submit" value="Create"/>
                 </div>
             </form>
         </div>

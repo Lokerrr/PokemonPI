@@ -30,10 +30,14 @@
 
 .h1 {
   position: absolute;
-  top: 10px; 
-  left: 130px;
+  top: 0px; 
+  left: 140px;
 }
 
+.span {
+  font-size: 15px;
+  font-weight: bold;
+}
 .container {
   display: flex;
   justify-content: left;
@@ -89,40 +93,54 @@
   text-align: center;
 }
 
-.select {
+.checkboxLabel {
+  display:contents ;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  width: 300px;
-  height: 25px;
   font-size: 14px;
   color: white;
-  background-color: rgba(0, 0, 0, 0.492);
-  border-radius: 4px;
-  margin-right: 10px;
-  align-items: center;
-  text-align: center;
 }
 
-.inputSubmit {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  bottom: -5%;
-  display: block;
-  position: relative;
-  width: 100%;
+.containerCheckbox {
+  width: 500px;
+  height: 100px;
   padding: 10px;
-  font-size: 16px;
-  background-color: #ff8484;
-  color: #fff;
+  background-color: rgba(0, 0, 0, 0.492);
+  border-radius: 10px;
+  margin-bottom: -15px;
+}
+
+.divCheckbox {
+  display: contents;
+  top: 10px;
+}
+
+
+.inputSubmit {
+  background-color: #b41515; 
+  border: none; 
+  color: white; 
+  padding: 10px 20px;
+  text-align: center; 
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   cursor: pointer;
-  transition: transform 0.3s ease;
-  margin-top: 15px;
-  border: 1px solid #05040400;
-  border-radius: 4px;
+  outline: none; 
+  position: absolute;
+  left: -59.5%;
+  top: 36%;
+  height: 95px;
+  width: 100px;
+  border-radius: 600%;
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.inputSubmit:hover {
+  transform: translateX(1px); 
+  background-color: #777777; 
 }
 
 .inputSubmit:disabled {
-  background-color: #ff84846d; /* Color del botón desactivado */
-  cursor: not-allowed;
-}
-.inputSubmit:hover:enabled {
-  transform: translateX(5px);
+  box-shadow: 0 2px 4px b41515(0, 0, 0, 0.2);
 }
