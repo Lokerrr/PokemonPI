@@ -16,8 +16,8 @@ function App() {
             <NavBar/>
             <Switch>
             <Route path = '/home' component = {Home}/>
-            <Route path = "/detail" component = {Detail}/>
             <Route path = "/create" component = {Form}/>
+            <Route path = "/pokemon/:id" component = {Detail}/>
             </Switch>
           </Route>
       </Switch>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import style from './Create.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPokemons, getTypes, postPokemon } from '../../Redux/actions';
+import { getTypes, postPokemon } from '../../Redux/actions';
 import { useHistory } from 'react-router-dom';
 export default function Create (){
 
@@ -65,7 +65,6 @@ export default function Create (){
 
     useEffect(() => {
         dispatch(getTypes());
-        dispatch(getAllPokemons());
     }, [dispatch]);
 
     const handleChange = (event) => {

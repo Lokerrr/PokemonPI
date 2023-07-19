@@ -1,7 +1,4 @@
-body::-webkit-scrollbar{
-  display: none;
-}
-.background {
+/* .background {
     position: relative;
     width: 100%;
     height: 100vh;
@@ -12,54 +9,24 @@ body::-webkit-scrollbar{
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+  } */
 
-  .navbar {
-    background-color: #4e444446;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    z-index: 999;
-  }
-
-  .search {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 33%;
-  }
   
-  
-  .input {
-      padding: 8px;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-      width: 200px; /* Ajusta el ancho según tus necesidades */
-  }
+  .selectContainer {
+    margin-top: 10%;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+}
 
-  .searchButton {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #fff;
-    color: red;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-    margin-left: 8px;
-    transition: transform 0.3s, background-color 0.3s, color 0.3s;
-  }
-  
-  .searchButton:hover {
-    transform: translateX(5px); /* Desplaza 5px hacia la derecha */
-    background-color: red; /* Cambia el fondo a blanco */
-    color: #fff; /* Cambia el color del texto a rojo */
-  }
+.button {
+  margin: 0px 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 30px;
+  background-color: rgb(87, 85, 85);
+  color: white;
+  -webkit-box-shadow: 4px 5px 7px 1px rgba(0,0,0,0.77); 
+  box-shadow: 4px 5px 7px 1px rgba(0,0,0,0.77);
+}
 
-  .cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  }

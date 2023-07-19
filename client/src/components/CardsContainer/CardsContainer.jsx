@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import Card from "../Card/Card"
 import style from "./CardsContainer.module.css"
 
-export default function CardsContainer (){
+export default function CardsContainer ({currentPokemons}){
   const pokemons = useSelector(state=>state.pokemons)
   
     return (
@@ -14,6 +14,7 @@ export default function CardsContainer (){
                 name={pokemon.name}
                 img={pokemon.img}
                 types={pokemon.types}
+                attack={pokemon.attack}
                 />
             })}
         </div>
