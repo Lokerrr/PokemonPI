@@ -1,0 +1,35 @@
+.nav {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .ul {
+    display: flex;
+    /* border: solid 1px; */
+    align-items: baseline;
+    justify-content: center;
+  }
+  
+  .ul li {
+    list-style: none;
+  }
+  
+  .p {
+    font-weight: bold;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(87, 85, 85);
+    border: solid 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-box-shadow: 4px 5px 7px 1px rgba(0, 0, 0, 0.77);
+    box-shadow: 4px 5px 7px 1px rgba(0, 0, 0, 0.77);
+  }
+  

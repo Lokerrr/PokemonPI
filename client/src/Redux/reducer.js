@@ -59,8 +59,8 @@ function rootReducer(state = initialState, action){
             const allPokemons2 = state.allPokemons
             const filtered2 = 
             action.payload === "db"
-            ? allPokemons2.filter((pokemon) => pokemon.source === "db")
-            : allPokemons2.filter((pokemon) => pokemon.source === "api")
+            ? allPokemons2.filter((pokemon) => pokemon.created === true)
+            : allPokemons2.filter((pokemon) => pokemon.created === false)
             return {...state, pokemons: action.payload === "all" ? allPokemons2 : filtered2,
         }
         

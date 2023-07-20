@@ -30,7 +30,7 @@
 
 .h1 {
   position: absolute;
-  top: 0px; 
+  top: -10px; 
   left: 140px;
 }
 
@@ -106,12 +106,11 @@
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.492);
   border-radius: 10px;
-  margin-bottom: -15px;
+  margin-top: 30px;
 }
 
 .divCheckbox {
   display: contents;
-  top: 10px;
 }
 
 
@@ -129,7 +128,7 @@
   outline: none; 
   position: absolute;
   left: -59.5%;
-  top: 36%;
+  top: 36.3%;
   height: 95px;
   width: 100px;
   border-radius: 600%;

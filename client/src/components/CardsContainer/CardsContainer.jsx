@@ -1,13 +1,11 @@
-import { useSelector } from "react-redux"
 import Card from "../Card/Card"
 import style from "./CardsContainer.module.css"
 
 export default function CardsContainer ({currentPokemons}){
-  const pokemons = useSelector(state=>state.pokemons)
-  
+
     return (
         <div className={style.container}>
-            {pokemons.map((pokemon) => {
+            {currentPokemons?.map((pokemon) => {
                 return <Card
                 key={pokemon.id}
                 id={pokemon.id}

@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPokemons, getTypes } from "../../Redux/actions";
 
+import Paginate from "../../components/Paginate/Paginate"
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import Filters from "../../components/Filter/Filters";
 import Sort from "../../components/Sort/Sort"
+import SearchBar from "../../components/SearchBar/SearchBar";
 export default function Home(){
     const dispatch = useDispatch();
 
@@ -16,7 +18,7 @@ export default function Home(){
     }, [dispatch])
 
     const types = useSelector((state) => state.pokemonTypes);
-    const allPokemons = useSelector((state) => state.allPokemons)
+    const allPokemons = useSelector((state) => state.pokemons)
 
     const [order, setOrder] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +27,10 @@ export default function Home(){
     const indexOfLastPokemon = currentPage * pokemonsPerPage
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage
     const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
+
+    const paginado = (pageNumber) => {
+        setCurrentPage(pageNumber)  
+      }
 
     const handleRefresh = () => {
         dispatch(getAllPokemons())
@@ -35,12 +41,14 @@ export default function Home(){
     return (
         <div className={styles.background}>
             <div className={styles.selectContainer}>
+            <SearchBar />
             <Filters types={types} setOrder={setOrder} setCurrentPage={setCurrentPage}/>
-            <button className={styles.button}onClick={handleRefresh}>Reset</button>
+            <button className={styles.button} onClick={handleRefresh}>Reset</button>
             <Sort setOrder={setOrder} setCurrentPage={setCurrentPage}/>
             </div>
             <div>
                 <CardsContainer currentPokemons={currentPokemons}/>
+                <Paginate pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado}/>
             </div>
         </div>
     )

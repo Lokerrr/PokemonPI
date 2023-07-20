@@ -2,15 +2,15 @@
     background-color: #4e444446;
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     z-index: 999;
   }
 
   .button {
-    position: relative;
-    left: -30%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
@@ -19,7 +19,6 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    margin-right: 10px;
     transition: transform 0.3s, background-color 0.3s, color 0.3s;
   }
 

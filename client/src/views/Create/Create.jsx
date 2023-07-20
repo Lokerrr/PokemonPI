@@ -2,36 +2,82 @@ import { useEffect, useState } from 'react'
 import style from './Create.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { getTypes, postPokemon } from '../../Redux/actions';
-import { useHistory } from 'react-router-dom';
-export default function Create (){
+function controlForm (input){
+    const reg = new RegExp('\.(jpg|jpeg|png|gif|bmp)$')
+    let errors = {};
+    if(!input.name) errors.name = "Please enter a name";
+    if(!input.img || !reg.test(input.img)) errors.img = "Please insert a valid image URL"
+    if(!input.hp || input.hp === "0") errors.hp = "Please insert a life level"
+    if(!input.attack || input.attack === "0") errors.attack = "Please insert an attack level"
+    if(!input.defense || input.defense === "0") errors.defense = "Please insert a defense level"
+    
+    return errors;
+};
 
+export default function Create (){
+    
+    const [errors, setErrors] = useState({
+        name: "*",
+        img: "*",
+        hp: "*",
+        attack: "*",
+        defense: "*"
+    });
     const [input, setInput] = useState({
         name: "",
         img: "",
-        hp: 0,
-        attack: 0,
-        defense: 0,
-        speed: 0,
-        height: 0,
-        weight: 0,
+        hp: "",
+        attack: "",
+        defense: "",
+        speed: "",
+        height: "",
+        weight: "",
         types: [],
     });
-    const [errors, setErrors] = useState({
-        name: "Please enter a name",
-        hp: "Please select an life level",
-        attack: "Please select an attack level",
-        defense: "Please select a defense level",
-        img: "Image is required",
-    })
     
     const dispatch = useDispatch();
-    const history = useHistory();
     const types = useSelector((state) => state.pokemonTypes);
+    
+    const validate = (input, name) => {
+        if (name === "name") {
+          if (input.name !== "") setErrors({ ...errors, name: "" });
+          else setErrors({ ...errors, name: "Name es requerido" });
+          return;
+        } else if (name === "life") {
+          if (input.life !== "") setErrors({ ...errors, life: "" });
+          else setErrors({ ...errors, life: "life es requerido" });
+          return;
+        } else if (name === "attack") {
+          if (input.attack !== "") setErrors({ ...errors, attack: "" });
+          else setErrors({ ...errors, attack: "Attack es requerido" });
+          return;     
+        } else if (name === "defense") {
+          if (input.defense !== "") setErrors({ ...errors, defense: "" });
+          else setErrors({ ...errors, defense: "Defense es requerido" });
+          return;
+        } else if (name === "speed") {
+          if (input.speed !== "") setErrors({ ...errors, speed: "" });
+          else setErrors({ ...errors, speed: "Attack es requerido" });
+          return;
+        } else if (name === "weight") {
+          if (input.weight !== "") setErrors({ ...errors, weight: "" });
+          else setErrors({ ...errors, weight: "Attack es requerido" });
+          return;
+        } else if (name === "height") {
+          if (input.height !== "") setErrors({ ...errors, height: "" });
+          else setErrors({ ...errors, height: "Attack es requerido" });
+          return;
+        } else if (name === "img") {
+          if (input.img !== "") setErrors({ ...errors, img: "" });
+          else setErrors({ ...errors, img: "Imagen es requerido" });
+          return;
+        }
+    }
     
     const disabled = () => {
         let disabled = false;
         for(let error in errors) {
-            if(errors[error] !== ""){
+            if(errors[error] !== "1"){
                 disabled = true;
                 break;
             }
@@ -39,38 +85,14 @@ export default function Create (){
         return disabled;
     };
 
-    const validate = (input, name) => {
-        if (name === "name"){
-            if(input.name !== "") setErrors({...errors, name: "" });
-            else setErrors({...errors, name: "Name is required"});
-            return;
-        } else if (name === "hp") {
-            if (input.hp !== "") setErrors({ ...errors, hp: "" });
-            else setErrors({ ...errors, hp: "Life is required" });
-            return;
-        } else if (name === "attack") {
-            if (input.attack !== "") setErrors({ ...errors, attack: "" });
-            else setErrors({ ...errors, attack: "Attack is required" });
-            return;     
-          } else if (name === "defense") {
-            if (input.defense !== "") setErrors({ ...errors, defense: "" });
-            else setErrors({ ...errors, defense: "Defense is required" });
-            return;
-          } else if (name === "img") {
-            if (input.img !== "") setErrors({ ...errors, img: "" });
-            else setErrors({ ...errors, img: "Imagen is required" });
-            return;
-          }
-    };
-
     useEffect(() => {
         dispatch(getTypes());
     }, [dispatch]);
 
     const handleChange = (event) => {
+        validate({...input,[event.target.name]: event.target.value,})
         setInput({...input,[event.target.name]: event.target.value,});
-        validate({...input, [event.target.name]: event.target.value,},
-        event.target.name
+        setErrors(controlForm({...input, [event.target.name]: event.target.value})
         );
     };
 
@@ -79,15 +101,25 @@ export default function Create (){
         try {
             dispatch(postPokemon(input));
             alert("The pokemon has been created successfully")
-            history.push("/create")
-        } catch {
-            alert('Has been an error')
+            setInput({
+            name: "",
+            img: "",
+            hp: "",
+            attack: "",
+            defense: "",
+            speed: "",
+            height: "",
+            weight: "",
+            types: [],
+        })
+        event.target.reset()
+    } catch {
+        alert('Has been an error')
         }
     };
     
-    const handleCheck = async (event) => {
-         await setInput({ ...input, types: [...input.types, event.target.id]})
-        console.log(input);
+    const handleCheck = (event) => {
+         setInput({ ...input, types: [...input.types, event.target.id]})
     }
     
     return (
@@ -211,13 +243,13 @@ export default function Create (){
                             <div key={type.name} className={style.divCheckbox}>
                             <label key={type.name} className={style.checkboxLabel}>
                             {type.name}
-                            <input
+                            <input 
                             key={type.name}
                             id={type.id}
                             name={type.name}
                             value={type.name}
                             type='checkbox'
-                            onChange={handleCheck}/>
+                            onClick={handleCheck}/>
                             </label>
                             </div>
                         ))}
